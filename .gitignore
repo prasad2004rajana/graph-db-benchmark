@@ -4,3 +4,12 @@ __pycache__/
 .env
 *.log
 .DS_Store
+kuzu_db/
+dataset/kuzu_edges.csv
+results/kuzu_benchmark.txt
+benchmark/concurrency_backup.py
+databases/check_*.py
+databases/find_*.py
+databases/get_*.py
+databases/inspect_*.py
+databases/test_*.py
