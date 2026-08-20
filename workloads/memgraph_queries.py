@@ -55,3 +55,14 @@ def aggregation(session):
         """
     )
     return list(result)
+
+def filtered_lookup(session, node_id):
+    result = session.run(
+        """
+        MATCH (p:Paper)
+        WHERE p.id = $id
+        RETURN p.id AS id, p.paper_id AS paper_id
+        """,
+        id=node_id
+    )
+    return list(result)

@@ -5,11 +5,13 @@ from neo4j import GraphDatabase
 
 from workloads.memgraph_queries import (
     point_lookup,
+    filtered_lookup,
     traversal_1_hop,
     traversal_2_hop,
     traversal_3_hop,
-    aggregation,
+    aggregation
 )
+
 from benchmark.metrics import calculate_latency_metrics
 
 
@@ -30,6 +32,7 @@ def benchmark(name, operation):
 
     latencies = []
 
+    # Measurement
     for _ in range(MEASURED_RUNS):
         start = time.perf_counter()
 
@@ -61,6 +64,11 @@ def main(node_id):
             benchmark(
                 "Point Lookup",
                 lambda: point_lookup(session, node_id)
+            )
+
+            benchmark(
+                "Filtered Lookup",
+                lambda: filtered_lookup(session, node_id)
             )
 
             benchmark(
