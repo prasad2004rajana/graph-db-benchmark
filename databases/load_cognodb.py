@@ -72,49 +72,16 @@ def main():
                     batch
                 )
 
-        print("Creating CITES relationships...")
+        print("Resuming CITES relationships...")
 
-       print("Resuming CITES relationships...")
+        with open(EDGE_FILE, newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
 
-with open(EDGE_FILE, newline="", encoding="utf-8") as f:
-    reader = csv.DictReader(f)
+            # Skip relationships already loaded
+            for _ in range(37000):
+                next(reader, None)
 
-    # Skip relationships already loaded
-    for _ in range(37000):
-        next(reader, None)
-
-    batch = []
-
-    for row in reader:
-        batch.append({
-            "start_id": int(row["start_id"]),
-            "end_id": int(row["end_id"])
-        })
-
-        if len(batch) >= BATCH_SIZE:
-            run_batch(
-                session,
-                """
-                UNWIND $rows AS row
-                MATCH (p:Paper {id: row.start_id})
-                MATCH (q:Paper {id: row.end_id})
-                CREATE (p)-[:CITES]->(q)
-                """,
-                batch
-            )
-            batch.clear()
-
-    if batch:
-        run_batch(
-            session,
-            """
-            UNWIND $rows AS row
-            MATCH (p:Paper {id: row.start_id})
-            MATCH (q:Paper {id: row.end_id})
-            CREATE (p)-[:CITES]->(q)
-            """,
-            batch
-        )
+            batch = []
 
             for row in reader:
                 batch.append({
@@ -154,8 +121,8 @@ with open(EDGE_FILE, newline="", encoding="utf-8") as f:
     print("CognoDB ingest complete")
     print("========================================")
     print(f"Time: {elapsed:.2f} seconds")
-    print(f"Nodes: 34546")
-    print(f"Edges: 421578")
+    print("Nodes: 34546")
+    print("Edges: 421578")
     print(f"Total records: {34546 + 421578}")
     print(f"Throughput: {(34546 + 421578) / elapsed:.2f} records/sec")
 

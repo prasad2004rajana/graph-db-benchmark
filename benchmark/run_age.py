@@ -22,11 +22,9 @@ MEASURED_RUNS = 100
 def benchmark(name, operation):
     print(f"\nRunning: {name}")
 
-    # Warm-up
     for _ in range(WARMUP_RUNS):
         operation()
 
-    # Measurement
     latencies = []
 
     for _ in range(MEASURED_RUNS):
@@ -43,9 +41,10 @@ def benchmark(name, operation):
     print(f"  P95 : {metrics['p95_ms']:.3f} ms")
     print(f"  Mean: {metrics['mean_ms']:.3f} ms")
 
+    return metrics
+
 
 def main(node_id):
-
     conn = psycopg2.connect(
         host="localhost",
         port=5433,
@@ -57,7 +56,6 @@ def main(node_id):
     try:
         with conn.cursor() as cur:
 
-            # Required for Apache AGE
             cur.execute("LOAD 'age'")
             cur.execute(
                 "SET search_path TO ag_catalog, '$user', public"
@@ -67,10 +65,11 @@ def main(node_id):
                 "Point Lookup",
                 lambda: point_lookup(cur, node_id)
             )
-	    benchmark(
-    		"Filtered Lookup",
-    		lambda: filtered_lookup(cur, node_id)
-	    )
+
+            benchmark(
+                "Filtered Lookup",
+                lambda: filtered_lookup(cur, node_id)
+            )
 
             benchmark(
                 "1-Hop Traversal",
@@ -97,7 +96,6 @@ def main(node_id):
 
 
 if __name__ == "__main__":
-
     if len(sys.argv) != 2:
         print("Usage: python benchmark/run_age.py <node_id>")
         sys.exit(1)
