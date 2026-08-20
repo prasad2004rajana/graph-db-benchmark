@@ -13,3 +13,5 @@ databases/find_*.py
 databases/get_*.py
 databases/inspect_*.py
 databases/test_*.py
+
+kuzu_db/
