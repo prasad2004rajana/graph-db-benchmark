@@ -5,6 +5,7 @@ import psycopg2
 
 from workloads.age_queries import (
     point_lookup,
+    filtered_lookup,
     traversal_1_hop,
     traversal_2_hop,
     traversal_3_hop,
@@ -66,6 +67,10 @@ def main(node_id):
                 "Point Lookup",
                 lambda: point_lookup(cur, node_id)
             )
+	    benchmark(
+    		"Filtered Lookup",
+    		lambda: filtered_lookup(cur, node_id)
+	    )
 
             benchmark(
                 "1-Hop Traversal",

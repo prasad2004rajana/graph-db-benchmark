@@ -46,6 +46,14 @@ benchmark(
     RETURN p.id
     """
 )
+benchmark(
+    "Filtered Lookup",
+    f"""
+    MATCH (p:Paper)
+    WHERE p.id = {NODE_ID} AND p.id IS NOT NULL
+    RETURN p.id
+    """
+)
 
 benchmark(
     "1-Hop Traversal",

@@ -21,6 +21,14 @@ def point_lookup(cur, node_id):
     """)
 
 
+def filtered_lookup(cur, node_id):
+    return run_cypher(cur, f"""
+        MATCH (p:Paper)
+        WHERE p.paper_id = '{node_id}'
+        RETURN p.paper_id
+    """)
+
+
 def traversal_1_hop(cur, node_id):
     return run_cypher(cur, f"""
         MATCH (p:Paper)

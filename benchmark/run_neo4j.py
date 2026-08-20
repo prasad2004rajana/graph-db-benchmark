@@ -5,6 +5,7 @@ from neo4j import GraphDatabase
 
 from workloads.memgraph_queries import (
     point_lookup,
+    filtered_lookup,
     traversal_1_hop,
     traversal_2_hop,
     traversal_3_hop,
@@ -53,6 +54,11 @@ def main(node_id):
             benchmark(
                 "Point Lookup",
                 lambda: point_lookup(session, node_id)
+            )
+
+            benchmark(
+                "Filtered Lookup",
+                lambda: filtered_lookup(session, node_id)
             )
 
             benchmark(
