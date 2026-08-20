@@ -15,3 +15,5 @@ databases/test_*.py
 
 kuzu_db/
 kuzu_db/*
+
+kuzu_db/
