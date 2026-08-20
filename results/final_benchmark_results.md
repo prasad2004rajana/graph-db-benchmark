@@ -152,3 +152,116 @@ Therefore, for traversal-heavy workloads in this benchmark, Memgraph is the stro
 
 These results are specific to the benchmark environment, dataset, queries, configuration, and workload implementation used in this project.
 
+
+---
+
+
+
+\# 4. Kuzu Results
+
+
+
+Kuzu was loaded with the same prepared dataset:
+
+
+
+\- Nodes: 34,546
+
+\- Relationships: 421,578
+
+
+
+\## Ingest
+
+
+
+| Metric | Kuzu |
+
+|---|---:|
+
+| Node ingest time | 0.23 s |
+
+| Edge ingest time | 0.35 s |
+
+
+
+\## Query Latency
+
+
+
+| Workload | P50 (ms) | P95 (ms) | Mean (ms) |
+
+|---|---:|---:|---:|
+
+| Point Lookup | Not captured in final output | Not captured | Not captured |
+
+| 1-Hop Traversal | 2.371 | 2.885 | 2.421 |
+
+| 2-Hop Traversal | 6.451 | 7.736 | 6.547 |
+
+| 3-Hop Traversal | 9.516 | 10.915 | 9.567 |
+
+| Aggregation | 20.170 | 22.716 | 20.470 |
+
+
+
+Kuzu was fully populated with 34,546 nodes and 421,578 relationships. Its measured traversal latency was substantially lower than the previously measured Neo4j, Memgraph, and Apache AGE results in this environment.
+
+
+
+The Kuzu results were collected using the same dataset and 100 measured iterations with 10 warm-up iterations.
+
+
+
+\---
+
+
+
+\# 5. CognoDB Status
+
+
+
+CognoDB Cloud was successfully connected and loaded with:
+
+
+
+\- 34,546 nodes
+
+\- 84,750 relationships
+
+
+
+The full 421,578 relationship import was not completed within the available assessment time because of resource/connection limitations on the free C0 instance.
+
+
+
+Therefore, CognoDB is reported as a partial deployment and its incomplete dataset results are not used for direct performance comparison.
+
+
+
+\---
+
+
+
+\# 6. Updated Conclusion
+
+
+
+The benchmark demonstrates substantial performance differences between graph database implementations under the tested workload.
+
+
+
+Kuzu produced the lowest measured traversal latency among the databases for which the corresponding workloads were completed in this environment.
+
+
+
+Memgraph also demonstrated strong performance and high concurrency throughput in the earlier tests, while Neo4j remained competitive. Apache AGE showed substantially higher traversal latency and greater latency growth under concurrency.
+
+
+
+These results should not be interpreted as universal database rankings. They are specific to the dataset, queries, hardware/resources, database configurations, driver implementations, and benchmark methodology used in this assessment.
+
+
+
+CognoDB was successfully evaluated for deployment and partial ingestion, but its dataset import was incomplete and therefore its performance measurements are not treated as directly comparable.
+
