@@ -1,0 +1,38 @@
+
+Running: Point Lookup
+  P50 : 11.876 ms
+  P95 : 17.829 ms
+  Mean: 13.566 ms
+
+Running: 1-Hop Traversal
+  P50 : 11.780 ms
+  P95 : 22.264 ms
+  Mean: 14.615 ms
+
+Running: 2-Hop Traversal
+  P50 : 11.139 ms
+  P95 : 13.109 ms
+  Mean: 11.977 ms
+
+Running: 3-Hop Traversal
+  P50 : 11.283 ms
+  P95 : 13.800 ms
+  Mean: 12.724 ms
+
+Running: Aggregation
+  P50 : 220.049 ms
+  P95 : 331.058 ms
+  Mean: 231.818 ms
+
+  
+Concurrency: 10
+Requests:    200
+P50:         22.411 ms
+P95:         32.502 ms
+Throughput:  392.80 req/s
+
+Concurrency: 25
+Requests:    500
+P50:         50.371 ms
+P95:         66.267 ms
+Throughput:  447.53 req/s
